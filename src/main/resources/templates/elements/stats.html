@@ -1,0 +1,49 @@
+<div th:fragment="stats">
+
+  <div class="container">
+    <div class="row gy-5 alt-features" >
+
+      <div  data-aos="fade-up" data-aos-delay="200">
+
+        <div class="row align-self-center" style="margin-bottom: 20px; margin-top: 20px;">
+
+          <div class="col-md-4 stats_box">
+            <i class="bi bi-people"></i>
+            <div>
+              <h4>Пользователей</h4>
+              <p th:text="${userCount}"></p>
+            </div>
+          </div>
+
+          <div class="col-md-4 stats_box">
+            <i class="bi bi-rocket-takeoff"></i>
+            <div>
+              <h4>Запусков клиента</h4>
+              <p>30000</p>
+            </div>
+          </div>
+          <div class="col-md-4 stats_box">
+            <i class="bi bi-arrow-clockwise"></i>
+            <div>
+              <h4>Обновлений вышло</h4>
+              <p>65</p>
+            </div>
+          </div>
+
+          <div class="col-md-4 stats_box">
+            <i class="bi bi-calendar3"></i>
+            <div>
+              <h4>Дней с открытия</h4>
+              <p  th:text="${daysRemaining}"></p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+</div>

@@ -1,0 +1,35 @@
+<div th:fragment="header">
+
+    <header id="header" class="header d-flex align-items-center"
+            th:classappend="${url == '/login' || url == '/register'} ? 'fixed-top' : ''">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+
+        <a href="/" class="logo d-flex align-items-center">
+            <img src="img/logo.png" alt="" width="40px">
+            <h1 th:text="${@appConfig.getClientName()}" style="font-size: 25px;"></h1>
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+            <ul>
+                <li><a href="/">Главная</a></li>
+                <li><a href="/#video">Обзор</a></li>
+                <li><a href="#footer">Поддержка</a></li>
+                <li><a href="/products">Покупка</a></li>
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+        <a  th:unless="${isAuth}" class="me-auto">
+            <a style="color: rgba(255, 255, 255, 0.8); margin: 0; padding: 0 10px; margin-top: -2.5px; font-weight: 500;" class="bi bi-door-closed" href="/login"> <span style="font-size: 16px; align-items: center; align-content: center;"> </span> Войти</a>
+        </a>
+
+        <a  th:if="${isAuth}" class="me-auto">
+            <a style="color: rgba(255, 255, 255, 0.8); margin: 0; padding: 0 10px; margin-top: -2.5px; font-weight: 500;" href="/cabinet"><span class="bi bi-person" style="font-size: 16px; align-items: center; align-content: center;"> </span> Личный кабинет</a>
+        </a>
+
+    </div>
+
+
+    </header>
+</div>

@@ -1,0 +1,56 @@
+.form{
+    padding: 40px 80px;
+}
+
+
+.field input,
+.field button{
+    width: 254px;
+    border: none;
+    font-size: 12px;
+
+}
+.input-icon {
+    position: fixed;
+    right: 60px;
+    margin-top: 6px;
+    width: 18px;
+    height: 18px;
+}
+.field input{
+    background: transparent;
+    border: rgba(255, 255,255, 0.3) 1px solid;
+    font-size: 12px;
+    color: rgba(255, 255,255, 0.3);
+
+    outline: none;
+    padding: 6px 15px;
+    margin-bottom: 10px;
+    border-radius: 7px;
+}
+.field input::placeholder {
+    color: rgba(255, 255,255, 0.3);
+}
+.field button{
+    background-image: linear-gradient(to right, #889DFF 0%, #B4C1FF  51%, #889DFF  100%);
+    transition: 0.5s;
+    background-size: 200% auto;
+    display: block;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 20px;
+    border-radius: 6px;
+    margin-left: 45px;
+}
+
+
+
+.field button:hover{
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+

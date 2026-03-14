@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${@appConfig.getClientName()} + ' » Регистрация'"></title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" th:href="@{/img/logo.png}">
+
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/auth.css" rel="stylesheet">
+    <link href="vendor/aos/aos.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <script src='https://www.google.com/recaptcha/api.js' async defer ></script>
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#registerForm").submit(function(event){
+                event.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "api/register",
+                    data: $(this).serialize(),
+                    success: function(response){
+                        if (response !== "OK") {
+                            showNotification(response, 'error');
+                        }else {
+                            showNotification('Успешная регистрация, поздравляем!', 'success');
+                            setTimeout(() => {
+                                window.location.href = "/cabinet";
+                            }, 2100);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    <style>
+        .custom-swal {
+            padding: 10px 20px !important;
+            background-color: rgba(255, 255, 255, .02) !important;
+            color: white !important;
+            border: 1px solid rgba(255, 255, 255, .05) !important;
+            border-radius: 10px !important;
+            display: flex;
+            align-items: center;
+        }
+
+        .custom-swal .swal2-title {
+            font-size: 14px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            line-height: 1.5 !important;
+            flex-grow: 1;
+        }
+
+        .custom-swal .swal2-icon {
+            color: white !important;
+            font-size: 10px !important;
+            margin-right: 10px !important;
+
+        }
+        @keyframes customZoomOut {
+            from {
+                transform: scale(1.1);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .custom-aos-zoom {
+            animation: customZoomOut 0.3s ease-out;
+        }
+
+
+        @keyframes customZoomIn {
+            from {
+                transform: scale(1);
+                opacity: 1;
+            }
+            to {
+                transform: scale(1.1);
+                opacity: 0;
+            }
+        }
+
+        .custom-aos-zoom-in {
+            animation: customZoomIn 0.3s ease-out;
+        }
+        </style>
+
+
+        </head>
+<body class="index-page">
+<header th:insert="~{elements/header :: header}"></header>
+<div class="customContainer" style="margin-top: -55px;">
+    <div class="form signup">
+        <div class="form-content">
+
+
+            <div class="text-center">
+                <img src="img/logo.png" alt="" width="60px">
+            </div>
+
+
+            <div class="titleText">Регистрация</div>
+
+<form id="registerForm" style="margin-top: 100px;" th:action="@{/api/register}" th:object="${user}" method="post">
+
+
+    <div class="field input-field">
+    <input type="email" id="email" placeholder="Введите e-mail"  th:field="*{email}" required>
+    </div>
+
+    <div class="field input-field">
+        <input type="text" id="username" placeholder="Придумайте login"  th:field="*{login}" required>
+    </div>
+
+    <div class="field input-field">
+    <input type="password" id="password" placeholder="Придумайте пароль" th:field="*{password}" required>
+    </div>
+
+    <div class="field button-field">
+
+        <style>
+            .text-xs-center {
+                text-align: center;
+            }
+
+        </style>
+
+        <div class="text-xs-center mt-4">
+            <div class="h-captcha" th:data-sitekey="${@appConfig.getHCaptchaSite()}"></div>
+        </div>
+
+    <button type="submit">Зарегистрироваться</button>
+        <div class="form-link">
+            <span style="color: rgba(255, 255, 255, 0.6);">У вас уже есть аккаунт? <a style="color: rgba(255, 255, 255, 0.8)" href="/login" class="link login-link">Войти</a></span>
+        </div>
+    </div>
+
+
+</form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+
+<script>
+
+    function showNotification(msg, icon) {
+        Swal.fire({
+            position: 'bottom-end',
+            icon: icon,
+            title: msg,
+            showConfirmButton: false,
+            timer: 2000,
+            toast: true,
+            customClass: {
+                popup: 'custom-swal'
+            },
+            background: '#f8f9fa',
+
+            showClass: {
+                popup: 'custom-aos-zoom'
+            },
+            hideClass: {
+                popup: 'custom-aos-zoom-in'
+            },
+        });
+    }
+</script>
+
+<script src="js/main.js"></script>

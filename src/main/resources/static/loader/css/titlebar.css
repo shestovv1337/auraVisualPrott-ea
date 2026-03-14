@@ -1,0 +1,22 @@
+.titlebar {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    padding: 15px 15px;
+    /*
+        padding: 50px 25px;
+     */
+    z-index: 999999;
+}
+
+.titlebar i {
+    color: white;
+    font-size: 30px;
+}
+
+body{
+    background-color: black;
+}

@@ -1,0 +1,155 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-weight: 600;
+}
+
+.save{
+    margin-top: 10px;
+}
+
+.customContainer{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px;
+}
+.form{
+    position: absolute;
+    max-width: 400px;
+    width: 100%;
+    padding: 10px;
+}
+
+.forms.show-recover .form.recover{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+.forms.show-recover .form.login{
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+.forms.show-signup .form.signup{
+    opacity: 1;
+    pointer-events: auto;
+}
+.forms.show-signup .form.login{
+    opacity: 0;
+    pointer-events: none;
+}
+form{
+    margin-top: 30px;
+}
+.form .field{
+    position: relative;
+    height: 40px;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 6px;
+}
+
+.button_start{
+    background: color-mix(in srgb, var(--accent-color), transparent 50%) 10%;
+    border: 2px solid rgba(255, 255, 255, .05);
+    color: white;
+    padding: 8px;
+    border-radius: 16px;
+    transition: 500ms;
+}
+
+.button_start:hover{
+    background: var(--accent-color);
+    box-shadow: 0 0 20px color-mix(in srgb,var(--accent-color),transparent 80%)
+
+}
+
+
+
+
+.field input,
+.field button{
+    height: 100%;
+    width: 100%;
+    border: none;
+    font-size: 15px;
+    background-color: var(--accent-color);
+}
+.field button:hover{
+    box-shadow: 0px 0 30px color-mix(in srgb, var(--accent-color), transparent 90%);
+
+}
+.field input{
+    background: rgba(255, 255, 255, .02);
+    border: 1px solid rgba(255, 255, 255, .05);
+    color: white;
+    outline: none;
+    padding: 0 20px;
+    border-radius: 16px;
+ }
+
+.field input:focus{
+    border-bottom-width: 1px;
+    background: rgba(255, 255, 255, .02);
+}
+.eye-icon{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #8b8b8b;
+    cursor: pointer;
+    padding: 5px;
+}
+.field button {
+    color: #fff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.form-link{
+    text-align: center;
+    margin-top: 10px;
+}
+.form-link span,
+.form-link a{
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+}
+.titleText{
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    height: 0px;
+    margin-top: 40px;
+}
+.form a{
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+}
+.form-content a:hover{
+    color: rgba(255, 255,255, 1);
+}
+
+.media-options a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 400px) {
+    .form{
+        padding: 20px 10px;
+    }
+
+}

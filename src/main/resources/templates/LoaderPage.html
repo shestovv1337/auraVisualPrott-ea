@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="loader/css/titlebar.css" rel="stylesheet">
+
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/auth.css" rel="stylesheet">
+    <link href="vendor/aos/aos.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <script src='https://www.google.com/recaptcha/api.js' async defer ></script>
+    <script>
+        fetch('/api/config/css-vars')
+            .then(response => response.json())
+            .then(vars => {
+                for (const [key, value] of Object.entries(vars)) {
+                    document.documentElement.style.setProperty(key, value);
+                }
+            });
+    </script>
+    <style>
+        *{
+            font-family: "Montserrat", sans-serif;
+            font-weight: 600;
+        }
+
+        .profile-header {
+            color: white;
+            border-radius: 50%;
+            position: fixed;
+            bottom: 5px;
+            left: 20px;
+            display: flex;
+        }
+        .profile-header img {
+            border-radius: 50%;
+            margin-bottom: 15px;
+            margin-right: 10px;
+            transition: transform 0.3s ease-in-out;
+            user-select: none;
+            pointer-events: none;
+            width: 50px;
+            height: 50px;
+        }
+
+        a{
+            user-select: none;
+
+        }
+
+        .profile-header .profile-text {
+            display: flex;
+            flex-direction: column;
+            margin-top: 3px;
+        }
+
+        .profile-header h1 {
+            font-size: 14px;
+        }
+        .profile-header p {
+            margin: 0;
+            font-size: 14px;
+            color: #cfcfcf;
+        }
+
+        .login-container{
+            padding: 70px;
+            text-align: center;
+        }
+
+        #myVideo {
+            position: fixed;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -9999999999999;
+            opacity: 0.1;
+        }
+
+
+
+        @keyframes loader_5191 {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+        .loader {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            position: relative;
+            animation: rotate 1s linear infinite
+        }
+        .loader::before , .loader::after {
+            content: "";
+            box-sizing: border-box;
+            position: absolute;
+            inset: 0px;
+            border-radius: 50%;
+            border: 5px solid #FFF;
+            animation: prixClipFix 2s linear infinite ;
+        }
+        .loader::after{
+            border-color: var(--accent-color);
+            animation: prixClipFix 2s linear infinite , rotate 0.5s linear infinite reverse;
+            inset: 6px;
+        }
+
+        @keyframes rotate {
+            0%   {transform: rotate(0deg)}
+            100%   {transform: rotate(360deg)}
+        }
+
+        @keyframes prixClipFix {
+            0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+            25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+            50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+            75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+            100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            z-index: 99999;
+            opacity: 0;
+            visibility: visible;
+            backdrop-filter: blur(5px);
+            animation: fadeInOverlay 0.5s ease-in-out forwards;
+        }
+
+        .overlay.hidden {
+            animation: fadeOutOverlay 0.5s ease-in-out forwards;
+        }
+
+
+
+        @keyframes fadeInOverlay {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOutOverlay {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        .accsent_text{
+            color: var(--accent-color) !important;
+        }
+
+    </style>
+
+
+</head>
+<body class="index-page" style="user-select: none;">
+
+<div class="titlebar">
+    <i id="close" class="bx bx-x nodrag" style="cursor: pointer; color: white;"></i>
+</div>
+
+<video autoplay="" muted="" loop="" id="myVideo" style="pointer-events: none;">
+    <source src="/img/3.mp4" type="video/mp4">
+</video>
+
+
+ <div class="overlay">
+
+     <span class="loader"></span>
+     <p id="status" style="font-size: 16px; margin-top: 20px;"></p>
+
+    <p id="percent" style="font-size: 14px; margin-top: 5px;"></p>
+</div>
+
+<div class="login-container">
+<p style="color: white; font-size: 18px; margin-bottom: 100px;">Клиент в игре</p>
+<p style="color: white; font-size: 11px;">Мы создали для вас уникальный клиент, который обеспечит вам значительное превосходство в игре. Он оснащён множеством возможностей, отлично подходящих для самых известных серверов Minecraft. На данный момент клиент находится в стадии активного бета-теста, так что мы регулярно выпускаем обновления, чтобы ваш игровой процесс становился ещё круче.</p>
+    <div style="display: flex; justify-content: center;">
+        <button  class="btn button_start mt-4 filled nodrag" style="width: 100%; font-weight: 600">Запустить</button>
+    </div>
+</div>
+
+<div class="profile-header " style="user-select: none">
+    <img th:src="${avatar}" width="50px">
+    <div class="profile-text">
+        <p th:text="${userLogin}"></p>
+        <p>Роль: <span class="accsent_text" th:text="${userRole}"></span></p>
+    </div>
+
+    <div hidden id="token" th:text="${token}"></div>
+
+    <a  class="bx bx-log-out nodrag pizda_logout" style="font-size: 20px; margin-left: 10px; margin-top: 20px; cursor: pointer; color: white;"></a>
+</div>
+</body>
+</html>
+
+<script>
+
+    document.addEventListener('mousedown', function(event) {
+        if (!event.target.classList.contains('nodrag')) {
+            window.chrome.webview.postMessage('mouse_pressed');
+        }
+    });
+
+    document.addEventListener('mousemove', function(event) {
+        window.chrome.webview.postMessage('mouse_dragged');
+    });
+
+    document.addEventListener('mouseup', function(event) {
+        window.chrome.webview.postMessage('mouse_released');
+    });
+    document.addEventListener('contextmenu', function(event) {
+        event.preventDefault();
+    });
+
+    const close = document.getElementById('close');
+    close.addEventListener('click', function (event){
+        window.chrome.webview.postMessage('close');
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        window.chrome.webview.postMessage('logged');
+    });
+
+
+
+</script>

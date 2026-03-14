@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Relake » Промокоды</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta charset="UTF-8">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="vendor/aos/aos.css" rel="stylesheet">
+    <link href="vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" type="image/x-icon" th:href="@{/img/logo.png}">
+    <link href="css/main.css" rel="stylesheet">
+</head>
+<body class="index-page">
+
+<header th:insert="~{elements/header :: header}"></header>
+
+<main class="cabinet">
+    <div class="container mt-5">
+        <div th:insert="~{elements/navbar :: navbar}" data-aos="fade-up"></div>
+
+         <div class="table-responsive mt-4" data-aos="fade-up">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Активаций</th>
+                    <th>Создатель (UID)</th>
+                    <th>Скидка (%)</th>
+                    <th>Название</th>
+                    <th>Реферальный процент (%)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="promo : ${promos}">
+                    <td th:text="${promo.id}"></td>
+                    <td th:text="${promo.activates}"></td>
+                    <td th:text="${promo.creator}"></td>
+                    <td th:text="${promo.discount}"></td>
+                    <td th:text="${promo.name}"></td>
+                    <td th:text="${promo.referal_percent}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <footer id="footer" th:insert="~{elements/footer :: footer}"></footer>
+</main>
+
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+</a>
+
+<script src="vendor/aos/aos.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

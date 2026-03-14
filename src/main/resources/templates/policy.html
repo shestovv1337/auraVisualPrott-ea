@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${@appConfig.getClientName()} + ' » Документы'"></title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta charset="UTF-8">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="vendor/aos/aos.css" rel="stylesheet">
+    <link href="vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" th:href="@{/img/logo.png}">
+
+    <link href="css/main.css" rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" th:href="@{/img/logo.png}">
+
+
+</head>
+
+<body class="index-page">
+
+<header th:insert="~{elements/header :: header}"></header>
+
+<main class="container mt-5" style="flex-grow: 1;  display: flex;
+    min-height: 100vh;" data-aos="zoom-out">
+    <div>
+        <p class="text-center fw-bold fs-3">Пользовательское соглашение</p>
+        <text style="white-space: pre-line;">
+            В соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных» настоящим я полностью и безоговорочно принимаю политику конфиденциальности, даю обществу <span th:text="${@appConfig.getRUNAME()}"></span>, согласие на автоматизированную, а также без использования средств автоматизации обработку путем сбора, систематизации, накопления, хранения, уточнения и удаления, а также путем передачи (предоставления) третьим лицам, привлеченных обществом <span th:text="${@appConfig.getRUNAME()}"></span>, моих персональных данных:
+            - имени и фамилии;
+            - адрес электронной почты;
+            указанных мною на сайте <span th:text="${@appConfig.getDomain()}"></span>, для следующих целей:
+            - писем с целью обратной связи со мной;
+            - оказания услуг, предусмотренных сайтом;
+            - повышения качества оказываемых услуг, качества работы сайта <span th:text="${@appConfig.getDomain()}"></span>
+            - обработки обращений;
+            - получения программного обеспечения, информации, и иных материалов от <span th:text="${@appConfig.getDomain()}"></span>
+            Настоящее согласие действует до даты отзыва согласия на обработку персональных связи, для этого необходимо написать письмона адрес <span th:text="${@appConfig.getSupportEmail()}"></span>
+        </text>
+    </div>
+</main>
+<footer id="footer" th:insert="~{elements/footer :: footer}"></footer>
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<script src="vendor/aos/aos.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+
+
+</html>

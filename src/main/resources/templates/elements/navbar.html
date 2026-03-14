@@ -1,0 +1,31 @@
+<div th:fragment="navbar">
+
+<nav aria-label="breadcrumb" style="font-size: 16px;">
+    <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
+        <li class="breadcrumb-item">
+            <a class="link-body-emphasis" href="/cabinet">
+                <span class="bi bi-person-fill px-2"> <span style="margin-left: 10px">Профиль</span></span>
+            </a>
+        </li>
+        <li class="breadcrumb-item">
+            <a class="link-body-emphasis fw-semibold text-decoration-none bi bi-bag-fill px-2" href="/products"><span style="margin-left: 10px">Покупка</span></a>
+        </li>
+        <li class="breadcrumb-item">
+            <a class="link-body-emphasis fw-semibold text-decoration-none bi bi-gear-fill px-2" href="/other"><span style="margin-left: 10px">Дополнительно</span></a>
+        </li>
+        <li th:if="${admin}" class="breadcrumb-item">
+            <a class="link-body-emphasis fw-semibold text-decoration-none bi bi-person-dash-fill px-2" href="/admin"><span style="margin-left: 10px">Админка</span></a>
+        </li>
+
+
+        <li th:if="${admin}" class="breadcrumb-item">
+            <a class="link-body-emphasis fw-semibold text-decoration-none bi bi-bookmark px-2" href="/promocodes"><span style="margin-left: 10px">Промокоды</span></a>
+        </li>
+
+        <li th:if="${youtuber}" class="breadcrumb-item">
+            <a class="link-body-emphasis fw-semibold text-decoration-none bi bi-youtube px-2" href="/youtuber"><span style="margin-left: 10px">Мои промокоды</span></a>
+        </li>
+
+    </ol>
+</nav>
+</div>

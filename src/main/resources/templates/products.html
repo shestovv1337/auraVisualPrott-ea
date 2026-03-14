@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title th:text="${@appConfig.getClientName()} + ' » Товары'"></title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="UTF-8">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/aos/aos.css" rel="stylesheet">
+  <link href="vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" th:href="@{/img/logo.png}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="css/main.css" rel="stylesheet">
+  <link href="css/pizda.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <style>
+
+
+    .swal2-popup {
+      background: rgba(255, 255, 255, .02);
+      border: 1px solid rgba(255, 255, 255, .05);
+      border-radius: 24px;
+      padding: 32px;
+      width: 100%;
+      position: relative;
+      max-height: 95vh;
+      overflow-y: auto;
+      backdrop-filter: blur(7px);
+    }
+
+    .swal2-title {
+      color: #fff !important;
+    }
+
+    .swal2-html-container {
+      color: #ddd !important;
+    }
+
+    .swal2-confirm {
+      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%) !important;
+      border: none !important;
+    }
+
+    .swal2-cancel {
+      background: #333 !important;
+      color: #fff !important;
+      border: none !important;
+    }
+
+
+    .product-modal-content {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .product-modal-image {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+    }
+
+    .product-modal-details {
+
+    }
+
+    .product-modal-name {
+      color: #fff;
+      margin: 0 0 5px 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .product-modal-price {
+      color: gray;
+      margin: 0;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    .payment-methods-select {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 12px;
+      color: #fff;
+      margin-bottom: 15px;
+      font-size: 14px;
+      transition: border-color .3s;
+    }
+
+    .payment-methods-select:focus {
+      border: 1px solid var(--accent-color);
+    }
+
+    .payment-methods-select:active {
+      border: 1px solid var(--accent-color);
+    }
+
+    .payment-methods-select option {
+      background: rgba(20, 20, 20, 0.95);
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+    }
+
+
+    .promo-code-input {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 12px;
+      color: #fff;
+      margin-bottom: 15px;
+      font-size: 14px;
+      transition: border-color .3s;
+    }
+
+    .promo-code-input:focus {
+      border-color: var(--accent-color);
+      outline: none;
+    }
+
+    .funpay-link {
+      color: var(--accent-color) !important;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity .3s;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .funpay-link:hover {
+      opacity: 0.8;
+    }
+
+    .shop-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .shop-header h2 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .shop-header p {
+      color: rgba(255, 255, 255, .7);
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+
+    .swal2-confirm {
+      background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-color) 100%) !important;
+      border: none !important;
+      border-radius: 20px !important;
+      padding: 12px 24px !important;
+      font-weight: 600 !important;
+      color: white !important;
+      transition: all 0.3s ease !important;
+
+    }
+
+    .swal2-confirm:hover {
+      transform: translateY(-1px) !important;
+     }
+
+    .swal2-confirm:active {
+      transform: translateY(0) !important;
+    }
+
+    .swal2-cancel {
+      background: rgba(255, 255, 255, 0.05) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-radius: 20px !important;
+      padding: 12px 24px !important;
+      font-weight: 500 !important;
+      color: rgba(255, 255, 255, 0.8) !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .swal2-cancel:hover {
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: white !important;
+    }
+
+    .swal2-actions {
+      max-width: 100%;
+      display: flex !important;
+      gap: 10px !important;
+      margin: 0 !important;
+      padding: 0 28px !important;
+    }
+
+    .swal2-confirm, .swal2-cancel {
+      flex: 1 1 0 !important;
+      min-width: 0 !important;
+      margin: 0 !important;
+      padding: 12px !important;
+    }
+
+    @media (max-width: 576px) {
+      .swal2-actions {
+        flex-direction: column !important;
+      }
+      .swal2-confirm, .swal2-cancel {
+        width: 100% !important;
+      }
+
+      .swal2-popup {
+        padding: 20px 0px;
+      }
+    }
+
+    .funpay-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 12px;
+      margin: 15px 0;
+      background: #fff;
+      border-radius: 8px;
+      color: #333;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .funpay-btn:hover {
+      background: #f0f0f0;
+      transform: translateY(-1px);
+    }
+
+    .funpay-btn img {
+      width: 56px;
+      margin-left: 5px;
+      margin-top: -1px;
+    }
+
+
+    .swal2-validation-message {
+      background-color: transparent !important;
+      color: white;
+      font-size: 1.1em;
+      margin-bottom: 20px;
+
+    }
+
+
+    .promo-feedback {
+      margin-top: 5px;
+      font-size: 14px;
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+    .promo-success {
+      color: #00FF22E5;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .promo-error {
+      color: #e81e2d;
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .price-with-discount {
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    @keyframes customZoomOut {
+      from {
+        transform: scale(1.1);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .custom-aos-zoom {
+      animation: customZoomOut 0.3s ease-out;
+    }
+
+
+    @keyframes customZoomIn {
+      from {
+        transform: scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: scale(1.1);
+        opacity: 0;
+      }
+    }
+
+    .custom-aos-zoom-in {
+      animation: customZoomIn 0.3s ease-out;
+    }
+
+
+
+
+  </style>
+</head>
+<body class="index-page">
+<header th:insert="~{elements/header :: header}"></header>
+<div class= "container mt-5">
+  <div class="mb-4 mb-xl-4">
+    <div class="card-header border-0 text-center mt-5 mb-4" data-aos="zoom-out" style="font-size: 18px;">Товары доступные к покупке</div>
+    <div class="card-body border-0">
+      <div class="shop-grid" data-aos="zoom-out">
+        <div class="shop-card" th:each="product : ${products}">
+          <div class="shop-image-placeholder">
+            <img th:src="${product.image}" alt="Product Image">
+          </div>
+          <h3 th:text="${product.name}">Название продукта</h3>
+          <p class="shop-price">
+            <span th:text="'Цена ' + ${product.price} + ' ₽'">Цена 0 ₽</span>
+          </p>
+          <button class="button-primary shop-button"
+                  th:attr="data-id=${product.id},
+                          data-name=${product.name},
+                          data-price=${product.price}
+                        ">
+            Приобрести
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer id="footer" th:insert="~{elements/footer :: footer}"></footer>
+</main>
+
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<script src="vendor/aos/aos.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/main.js"></script>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  var paymentMethods = /*[[${paymentMethods}]]*/ [];
+  /*]]>*/
+</script>
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const shopButtons = document.querySelectorAll('.shop-button');
+
+    shopButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const productId = this.getAttribute('data-id');
+        const productName = this.getAttribute('data-name');
+        const productPrice = this.getAttribute('data-price');
+        const funpayLink = this.getAttribute('data-funpaylink') || '#';
+
+
+        let paymentOptions;
+        paymentMethods.forEach(method => {
+          const value = method.split(' ')[0].toLowerCase();
+          paymentOptions += `<option value="${value}">${method}</option>`;
+        });
+
+
+        Swal.fire({
+          title: 'Оформление покупки',
+           html: `
+            <div class="product-modal-content">
+              <div class="product-modal-image">
+                <img src="img/logo.png" alt="${productName}" width="50">
+              </div>
+              <div class="product-modal-details">
+                <h4 class="product-modal-name">${productName}</h4>
+                <p class="product-modal-price">${productPrice} ₽</p>
+              </div>
+            </div>
+            <input type="text" class="promo-code-input" id="promoCodeInput" placeholder="Введите промокод (если есть)">
+            <select class="payment-methods-select">
+              <option value="" disabled selected>Выберите способ оплаты</option>
+               ${paymentOptions}
+            </select>
+
+            <button class="funpay-btn" onclick="window.open('https://funpay.com/users/13166224/', '_blank')">
+              Оплатить через
+              <img src="img/funpay.svg" alt="FunPay">
+            </button>
+
+
+
+            <div id="promoCodeFeedback" class="promo-feedback"></div>
+            <div id="discountInfo" class="d-none">
+              <p style="font-weight: 600;">Итоговая цена: <span id="discountedPrice" class="price-with-discount">${productPrice}</span> ₽</p>
+            </div>
+
+          `,
+          showCancelButton: true,
+          confirmButtonText: 'Купить <span id="finalPrice">' + productPrice + '</span> ₽',
+          cancelButtonText: 'Отмена',
+          width: '700px',
+          focusConfirm: false,
+          showClass: {
+            popup: 'custom-aos-zoom'
+          },
+          hideClass: {
+            popup: 'custom-aos-zoom-in'
+          },
+          didOpen: () => {
+            $('#promoCodeInput').on('input', function() {
+              var promoCode = $(this).val();
+              var originalPrice = parseFloat(productPrice);
+
+              if(promoCode.trim() === '') {
+                $('#promoCodeFeedback').text('').removeClass('promo-success promo-error');
+                $('#discountInfo').addClass('d-none');
+                $('#finalPrice').text(originalPrice.toFixed(2));
+                return;
+              }
+
+              $.ajax({
+                url: '/check-promo-code',
+                type: 'POST',
+                data: { promoCode: promoCode },
+                success: function(response) {
+                  if (response.valid) {
+                    var discountPercent = response.discountPercent;
+                    $('#promoCodeFeedback').text('Промокод активирован! Скидка: ' + discountPercent + '%')
+                            .removeClass('promo-error').addClass('promo-success');
+
+                    var discountedPrice = originalPrice * (1 - discountPercent / 100);
+                    $('#discountPercent').text(discountPercent);
+                    $('#discountedPrice').text(discountedPrice.toFixed(2));
+                    $('#finalPrice').text(discountedPrice.toFixed(2));
+                    $('#discountInfo').removeClass('d-none');
+                  } else {
+                    $('#promoCodeFeedback').text('Промокод недействителен')
+                            .removeClass('promo-success').addClass('promo-error');
+                    $('#discountInfo').addClass('d-none');
+                    $('#finalPrice').text(originalPrice.toFixed(2));
+                  }
+                },
+                error: function() {
+                  $('#promoCodeFeedback').text('Ошибка проверки промокода')
+                          .removeClass('promo-success').addClass('promo-error');
+                }
+              });
+            });
+
+          },
+          preConfirm: () => {
+            const paymentMethod = document.querySelector('.payment-methods-select').value;
+            const promoCode = document.querySelector('.promo-code-input').value;
+
+            if (!paymentMethod) {
+              Swal.showValidationMessage('Пожалуйста, выберите способ оплаты');
+              return false;
+            }
+
+            return {
+              productId: productId,
+              productName: productName,
+              productPrice: productPrice,
+              paymentMethod: paymentMethod,
+              promoCode: promoCode
+            }
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const paymentData = result.value;
+
+            fetch('/createPayment', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(paymentData)
+            })
+                    .then(response => response.json())
+                    .then(data => {
+                      Swal.fire({
+                        title: 'Переход к оплате',
+                        html: `
+      <p>Товар: <b>${paymentData.productName}</b></p>
+      <p>Способ оплаты: <b>${getPaymentMethodName(paymentData.paymentMethod)}</b></p>
+      ${paymentData.promoCode ? `<p>Промокод: <b>${paymentData.promoCode}</b></p>` : ''}
+      <p style="margin-top: 20px;">Сейчас вы будете перенаправлены на страницу оплаты...</p>
+    `,
+                        icon: 'info',
+                        timer: 3000,
+                        width: '700px',
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        willClose: () => {
+                          if (data.redirectUrl) {
+                            window.location.href = data.redirectUrl;
+                          }
+                        }
+                      });
+                    })
+                    .catch(error => {
+                      console.error('Error:', error);
+                      Swal.fire({
+                        title: 'Ошибка',
+                        text: 'Произошла ошибка при создании платежа',
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                        width: '500px'
+                      });
+                    });
+          }
+        });
+      });
+    });
+    function getPaymentMethodName(value) {
+      const method = paymentMethods.find(m =>
+              m.toLowerCase().replace(/[^a-zа-яё]/g, '') === value
+      );
+      return method || value;
+    }
+  });
+
+
+
+
+</script>
+
+</body>
+</html>

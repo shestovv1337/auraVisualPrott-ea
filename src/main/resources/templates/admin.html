@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${@appConfig.getClientName()} + ' » Админка'"></title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="vendor/aos/aos.css" rel="stylesheet">
+    <link href="vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" th:href="@{/img/logo.png}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/pizda.css" rel="stylesheet">
+    <style>
+
+
+        .admin-container {
+            background: rgba(255,255,255,.02);
+            border: 1px solid rgba(255,255,255,.05);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 1400px;
+            backdrop-filter: blur(5px);
+            margin-bottom: 24px;
+        }
+
+        .admin-section {
+            margin-bottom: 32px;
+        }
+
+        .admin-section-header {
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+        }
+
+        .admin-card {
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.05);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .admin-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background: var(--accent-color);
+            border-radius: 28px;
+            color: #fff;
+            text-decoration: none;
+            transition: .3s;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        .admin-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0 15px color-mix(in srgb,var(--accent-color),transparent 80%);
+        }
+
+        .admin-button-secondary {
+            background: rgba(255,255,255,.1);
+            border: 1px solid rgba(255,255,255,.1);
+        }
+
+        .admin-button-secondary:hover {
+            background: rgba(255,255,255,.15);
+            border-color: rgba(255,255,255,.15);
+        }
+
+        .form-label {
+            color: rgba(255,255,255,.8);
+            margin-bottom: 8px;
+            display: block;
+            font-size: 14px;
+        }
+
+        textarea.form-control {
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.1);
+            color: #fff;
+            border-radius: 12px;
+            padding: 12px;
+            width: 100%;
+        }
+
+        progress {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,.05);
+            border: none;
+        }
+
+        progress::-webkit-progress-bar {
+            background: rgba(255,255,255,.05);
+            border-radius: 4px;
+        }
+
+        progress::-webkit-progress-value {
+            background: var(--accent-color);
+            border-radius: 4px;
+        }
+
+        progress::-moz-progress-bar {
+            background: var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .text-success {
+            color: #4CAF50 !important;
+        }
+
+        .text-danger {
+            color: #f44336 !important;
+        }
+    </style>
+</head>
+<body class="index-page">
+
+<header th:insert="~{elements/header :: header}"></header>
+
+<main class="cabinet">
+    <div class="container mt-5" data-aos="fade-up">
+        <div class="admin-container">
+            <h2 style="font-size: 28px; font-weight: 600; color: #fff; margin-bottom: 24px;">Панель администратора</h2>
+
+            <div class="admin-section">
+                <div class="admin-section-header">Сгенерировать ключи</div>
+                <div class="admin-card">
+                    <form action="/generateKeys" method="post">
+                        <label class="form-label">Количество дней</label>
+                        <input class="someInput" name="days" type="number" value="30">
+                        <label class="form-label">Количество ключей</label>
+                        <input class="someInput" name="count" type="number" value="1">
+                        <button class="admin-button" type="submit">Сгенерировать</button>
+                    </form>
+
+                    <div th:if="${licenseKeysString}" style="margin-top: 20px;">
+                        <label class="form-label">Сгенерированные ключи</label>
+                        <textarea class="form-control" rows="8" th:text="${licenseKeysString}"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <div class="admin-section-header">Создать промокод</div>
+                <div class="admin-card">
+                    <form id="promoCreate" method="post">
+                        <label class="form-label">Название</label>
+                        <input class="someInput" name="name" type="text">
+                        <label class="form-label">Скидка (%)</label>
+                        <input class="someInput" name="percent" type="number">
+                        <label class="form-label">UID ютубера</label>
+                        <input class="someInput" name="uid" type="number">
+                        <label class="form-label">Реферальный процент</label>
+                        <input class="someInput" name="ref_percent" type="number">
+                        <div id="promoResult" style="margin-top: 12px;"></div>
+                        <button class="admin-button" type="submit">Создать</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <div class="admin-section-header">Информация о промокоде</div>
+                <div class="admin-card">
+                    <form id="getInfoPromo" method="post">
+                        <label class="form-label">Название промокода</label>
+                        <input class="someInput" name="promo" type="text">
+                        <div style="display: flex; gap: 12px; margin-bottom: 15px;">
+                            <div style="flex: 1;">
+                                <label class="form-label">Дата начала</label>
+                                <input type="date" name="startDate" class="someInput" required>
+                            </div>
+                            <div style="flex: 1;">
+                                <label class="form-label">Дата окончания</label>
+                                <input type="date" name="endDate" class="someInput" required>
+                            </div>
+                        </div>
+                        <div id="getInfoPromoResult" style="margin-top: 12px;"></div>
+                        <button class="admin-button" type="submit">Посмотреть</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <div class="admin-section-header">Сбросить промокод</div>
+                <div class="admin-card">
+                    <form id="resetPromo" method="post">
+                        <label class="form-label">Название промокода</label>
+                        <input class="someInput" name="name" type="text">
+                        <div id="resetPromoResult" style="margin-top: 12px;"></div>
+                        <button class="admin-button" type="submit">Сбросить</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <div class="admin-section-header">Удалить промокод</div>
+                <div class="admin-card">
+                    <form id="deletePromo" method="post">
+                        <label class="form-label">Название промокода</label>
+                        <input class="someInput" name="name" type="text">
+                        <div id="deletePromoResult" style="margin-top: 12px;"></div>
+                        <button class="admin-button" type="submit">Удалить</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <div class="admin-section-header">Сбросить пароль</div>
+                <div class="admin-card">
+                    <form id="resetPass" method="post">
+                        <label class="form-label">UID пользователя</label>
+                        <input class="someInput" name="uid" type="number">
+                        <p id="resetPassResult" style="margin-top: 12px;"></p>
+                        <button class="admin-button" type="submit">Сбросить</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <div class="admin-section-header">Сбросить HWID</div>
+                <div class="admin-card">
+                    <form id="resetHWID" method="post">
+                        <label class="form-label">UID пользователя</label>
+                        <input class="someInput" name="uid" type="number">
+                        <p id="resetIDResult" style="margin-top: 12px;"></p>
+                        <button class="admin-button" type="submit">Сбросить</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <div class="admin-section-header">Снять подписку</div>
+                <div class="admin-card">
+                    <form id="subRemove" method="post">
+                        <label class="form-label">UID пользователя</label>
+                        <input class="someInput" name="uid" type="number">
+                        <p id="subRemoveResult" style="margin-top: 12px;"></p>
+                        <button class="admin-button" type="submit">Снять подписку</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <div class="admin-section-header">Технические работы</div>
+                <div class="admin-card">
+                    <label class="form-label">Тип работ</label>
+                    <select class="someInput" id="selectTexwork">
+                        <option th:value="0" th:selected="${currentTexWork == 0}">Отключены</option>
+                        <option th:value="1" th:selected="${currentTexWork == 1}">Технические работы на скачивание лаунчера</option>
+                        <option th:value="2" th:selected="${currentTexWork == 2}">Полные технические работы сайта + клиента</option>
+                        <option th:value="4" th:selected="${currentTexWork == 4}">Отключение регистрации новых пользователей</option>
+                    </select>
+
+                    <form id="texworkID" method="post">
+                        <input type="hidden" id="texWork" name="type">
+                        <div id="texWorkResult" style="margin-top: 12px;"></div>
+                        <button class="admin-button" type="submit">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer" th:insert="~{elements/footer :: footer}"></footer>
+</main>
+
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<script>
+    $(document).ready(function () {
+        $("#deletePromo").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/api/deletePromo",
+                data: $(this).serialize(),
+                success: function (response) {
+                    $("#deletePromoResult").html(response);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#resetPromo").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/api/resetPromo",
+                data: $(this).serialize(),
+                success: function (response) {
+                    $("#resetPromoResult").html(response);
+                }
+            });
+        });
+    });
+
+    const infoPromoForm = $("#getInfoPromo");
+    if (infoPromoForm.length) {
+        infoPromoForm.submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "infoPromo",
+                data: $(this).serialize(),
+                success: function (response) {
+                    $("#getInfoPromoResult").html(response);
+                }
+            });
+        });
+    }
+
+    const resetpassDiv = $("#resetPass");
+    if (resetpassDiv.length) {
+        resetpassDiv.submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/resetPass",
+                data: $(this).serialize(),
+                success: function (response) {
+                    $("#resetPassResult").html(response);
+                }
+            });
+        });
+    }
+
+    $(document).ready(function () {
+        $("#subRemove").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/api/removeSub",
+                data: $(this).serialize(),
+                success: function (response) {
+                    $("#subRemoveResult").html(response);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#resetHWID").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/api/resetHWID",
+                data: $(this).serialize(),
+                success: function (response) {
+                    $("#resetIDResult").html(response);
+                }
+            });
+        });
+    });
+
+    document.getElementById('selectTexwork').addEventListener('change', function() {
+        var selectedValue = this.value;
+        document.getElementById('texWork').value = selectedValue;
+    });
+
+
+    $(document).ready(function () {
+        $("#promoCreate").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/createPromo",
+                data: $(this).serialize(),
+                success: function (response) {
+                    $("#promoResult").html(response);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#texworkID").submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/api/texworks",
+                data: $(this).serialize(),
+                success: function (response) {
+                    $("#texWorkResult").html(response);
+                }
+            });
+        });
+    });
+</script>
+
+<script src="vendor/aos/aos.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

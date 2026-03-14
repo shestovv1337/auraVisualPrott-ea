@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="loader/css/titlebar.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/auth.css" rel="stylesheet">
+    <link href="vendor/aos/aos.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <script src='https://www.google.com/recaptcha/api.js' async defer ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        fetch('/api/config/css-vars')
+            .then(response => response.json())
+            .then(vars => {
+                for (const [key, value] of Object.entries(vars)) {
+                    document.documentElement.style.setProperty(key, value);
+                }
+            });
+    </script>
+
+    <style>
+
+        .custom-swal {
+            height: 40px !important;
+            min-height: 40px !important;
+            padding: 0 15px !important;
+            background-color: rgba(255, 255, 255, .02) !important;
+            color: white !important;
+            border: 1px solid rgba(255, 255, 255, .05) !important;
+            border-radius: 10px !important;
+            display: flex !important;
+            align-items: center !important;
+        }
+
+        .custom-swal .swal2-title {
+            font-size: 14px !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            line-height: 40px !important;
+        }
+
+        .custom-swal .swal2-icon {
+            color: white !important;
+            font-size: 10px !important;
+            margin-right: 10px !important;
+
+        }
+
+        </style>
+    <script>
+        $(document).ready(function(){
+            $("#authForm").submit(function(event){
+                event.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "api/loginLoader",
+                    data: $(this).serialize(),
+                    success: function(response){
+                        if (response !== "OK") {
+                            showNotification(response, 'error');
+                        }else {
+                            showNotification('Успешная авторизация!', 'success');
+                            setTimeout(() => {
+                                window.location.href = "/LoaderPage";
+                            }, 2000);
+                        }
+                    }
+                });
+            });
+        });
+
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+        });
+
+    </script>
+
+
+
+    <style>
+
+        .icon i {
+
+            display: flex;
+            justify-content: flex-end;
+            position: absolute;
+            right: 15px;
+            color: gray;
+            font-size: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .social{
+            margin-top: 20px;
+            font-size: 25px;
+
+        }
+        .discord {
+            color: gray;
+        }
+        .social i {
+            margin-right: 10px;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+        .youtube{
+            color: gray;
+        }
+
+        .telegram{
+            color: gray;
+        }
+        .social i {
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social i:hover{
+            color: white;
+        }
+
+
+        .social i:last-child {
+            margin-right: 0;
+        }
+
+        @keyframes customZoomOut {
+            from {
+                transform: scale(1.1);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .custom-aos-zoom {
+            animation: customZoomOut 0.3s ease-out;
+        }
+
+
+        @keyframes customZoomIn {
+            from {
+                transform: scale(1);
+                opacity: 1;
+            }
+            to {
+                transform: scale(1.1);
+                opacity: 0;
+            }
+        }
+
+        .custom-aos-zoom-in {
+            animation: customZoomIn 0.3s ease-out;
+        }
+
+
+    </style>
+</head>
+<body class="index-page" style="user-select: none;">
+
+<div class="titlebar">
+    <i id="close" class="bx bx-x nodrag" style="cursor: pointer; color: white;"></i>
+</div>
+
+
+<div class="customContainer">
+
+    <div hidden id="discord_url" th:text="${@appConfig.getDiscord()}"></div>
+    <div hidden id="telegram_url" th:text="${@appConfig.getTelegram()}"></div>
+    <div hidden id="youtube_url" th:text="${@appConfig.getYouTube()}"></div>
+    <div hidden id="root" th:text="${@appConfig.getArgumentClientPath()}"></div>
+    <div hidden id="registory" th:text="${@appConfig.getClientName()}"></div>
+
+    <div class="form" style="background-color: transparent; width: 400px;">
+        <div class="form-content">
+            <div style="text-align: center; pointer-events: none; " >
+                <img src="/img/logo.png" style=" margin-top: 20px; margin-bottom: 10px;" width="70" height="70px"></img>
+                <p style="font-size: 20px;">Войти в аккаунт</p>
+            </div>
+
+            <form id="authForm" th:action="@{/api/register}" th:object="${user}" method="post" autocomplete="off">
+                <input id="hwid" name="hwid" type="text" hidden autocomplete="off">
+
+                <div class="field input-field icon ">
+                    <input id="login_field" class="nodrag" name="login" type="text" placeholder="Введите e-mail или login" required autocomplete="off">
+                    <i class="bx bxs-user"></i>
+
+                </div>
+
+                <div class="field input-field icon">
+                    <input  id="password_field" type="password" class="nodrag" name="password" placeholder="Введите пароль" required autocomplete="new-password">
+                    <i class="bx bxs-key"></i>
+                </div>
+
+                <div style="margin-top: 20px">
+                    <div style="text-align: center; font-size: 14px;" class="mb-3">
+                        <a class="link nodrag" href="/LoaderRestPassword" >Забыли пароль?</a>
+                    </div>
+                    <div style="display: flex; justify-content: center;">
+                        <button class="nodrag button_start mt-4 enter" style="width: 100%;">Войти</button>
+                    </div>
+                    <div style="text-align: center">
+                    <div class="social nodrag">
+                        <i id="tg" class="bx bxl-telegram telegram"></i>
+                        <i id="discord" class="bx bxl-discord discord"></i>
+                        <i id="youtube" class="bx bxl-youtube youtube"></i>
+                    </div>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
+
+<script>
+
+
+    tg.addEventListener('click', function (event) {
+        window.chrome.webview.postMessage('tg');
+    });
+
+    const discord = document.getElementById("discord");
+
+    discord.addEventListener('click', function (event) {
+        window.chrome.webview.postMessage('discord');
+    });
+
+
+    const youtube = document.getElementById("youtube");
+
+    youtube.addEventListener('click', function (event) {
+        window.chrome.webview.postMessage('youtube');
+    });
+
+    document.addEventListener('mousedown', function (event) {
+        if (!event.target.classList.contains('nodrag')) {
+            window.chrome.webview.postMessage('mouse_pressed');
+        }
+    });
+
+    document.addEventListener('mousemove', function (event) {
+        window.chrome.webview.postMessage('mouse_dragged');
+    });
+
+    document.addEventListener('mouseup', function (event) {
+        window.chrome.webview.postMessage('mouse_released');
+    });
+
+    const close = document.getElementById("close");
+
+    close.addEventListener('click', function (event) {
+        window.chrome.webview.postMessage('close');
+    });
+    function showNotification(msg, icon) {
+
+
+        Swal.fire({
+            position: 'bottom',
+            icon: icon,
+            title: msg,
+            showConfirmButton: false,
+            timer: 1800,
+            toast: true,
+            customClass: {
+                popup: 'custom-swal'
+            },
+            background: '#f8f9fa',
+            didOpen: (toastEl) => {
+                toastEl.style.width = 'auto';
+                toastEl.style.display = 'inline-block';
+                toastEl.style.whiteSpace = 'nowrap';
+                toastEl.style.maxWidth = '90vw';
+                toastEl.style.boxSizing = 'border-box';
+
+                const realWidth = toastEl.offsetWidth;
+                toastEl.style.width = realWidth + 'px';
+            },
+            showClass: {
+                popup: 'custom-aos-zoom'
+            },
+            hideClass: {
+                popup: 'custom-aos-zoom-in'
+            },
+        });
+    }
+</script>

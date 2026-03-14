@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title th:text="${@appConfig.getClientName()} + ' » Главная'"></title>
+   <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/aos/aos.css" rel="stylesheet">
+  <link href="vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" th:href="@{/img/logo.png}">
+
+  <link href="css/main.css" rel="stylesheet">
+    <meta charset="UTF-8">
+
+</head>
+
+<body class="index-page">
+
+<header th:insert="~{elements/header :: header}" style="margin-bottom: 90px;"></header>
+<main class="main">
+
+  <section id="hero" class="hero section">
+    <div class="container alt"  data-aos="fade-up">
+      <div class="row align-items-center">
+        <div class="col-lg-6" style="margin-bottom: 80px;">
+
+          <h1 class="display-4 lh-1 mb-3" style="font-weight: 600">Лучший клиент для игры майнкрафт</h1>
+          <p class="lead" style="font-weight: 400; color: gray;">Мы предлагаем вам погрузится в лучший и увлекательный мир Манкрафт с нашим лучшим клиентом <span th:text="${@appConfig.getClientName()}"></span>.</p>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <a type="button" href="/products" class="btn px-4 me-md-2 logo_button"
+            >Купить</a>
+           </div>
+
+
+        </div>
+
+
+
+        <div class="col-xl-5 col-xxl-5 d-none d-xl-block text-center">
+          <img src="img/logo.png" width="300px" class="d-block mx-lg-auto img-fluid animated" loading="lazy" style="margin-top: -50px"  data-aos="zoom-out">
+        </div>
+
+      </div>
+
+        <div style="text-align: left; margin-bottom: 20px; margin-top: 40px;" data-aos="fade-up" >
+          <h2>Наши достоинства</h2>
+        </div>
+
+
+        <div class="row gy-5 alt-features" >
+
+          <div  data-aos="fade-up" data-aos-delay="200">
+
+            <div class="row align-self-center">
+
+              <div class="col-md-4 icon-box">
+                <i class="bi bi-bookmark-check"></i>
+
+                <div>
+
+
+                  <h4>Простая установка</h4>
+
+                  <p>Мы даем полный пакет инструкций для установки нашего клиента</p>
+
+                </div>
+              </div>
+
+              <div class="col-md-4 icon-box">
+                <i class="bi bi-terminal"></i>
+                <div>
+                  <h4>Более 70+ Модулей</h4>
+                  <p>В нашем клиенте достаточно много функционала, под любые случаи жизни</p>
+                </div>
+              </div>
+              <div class="col-md-4 icon-box">
+                <i class="bi bi-fingerprint"></i>
+                <div>
+                  <h4>Надёжность</h4>
+                  <p>Мы постоянно улучшаем функционал нашего клиента, проверка временем.</p>
+                </div>
+              </div>
+              <div class="col-md-4 icon-box">
+                <i class="bi bi-cpu"></i>
+                <div>
+                  <h4>Оптимизация</h4>
+                  <p>Продукт который мы создаем, максимально оптимизирован, работет стабильно</p>
+                </div>
+              </div>
+              <div class="col-md-4 icon-box">
+                <i class="bi bi-list-ul"></i>
+                <div>
+                  <h4>Удобность и практичность</h4>
+                  <p>Вы можете букально ничего не настраивать, все уже работает, вам не составит труда</p>
+                </div>
+              </div>
+              <div class="col-md-4 icon-box">
+                <i class="bi bi-images"></i>
+                <div>
+                  <h4>Красивые визуалы</h4>
+                  <p>Настройка каждой визуальной функции в мельчайших деталях</p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+  </section>
+
+    <div  data-aos="fade-up"  class="container" style="text-align: left" id="video">
+
+    <h1 class="mb-4 display-6 fw-bold">Видеообзор</h1>
+    <p class="mb-5" style="color: gray;">Ниже вы можете посмотреть небольшой геймплей с нашим клиентом.</p>
+    <hr class="mx-auto mb-5 mb-xl-9 border-dark-subtle">
+    <div class="embed-responsive embed-responsive-16by9 rounded-4">
+
+
+     <iframe class="embed-responsive-item" th:src="${@appConfig.getVideo()}" loading="lazy" allowfullscreen=""></iframe>
+
+    </div>
+
+  </div>
+
+
+
+</main>
+
+<footer id="stats" th:insert="~{elements/stats :: stats}"></footer>
+<footer id="footer" th:insert="~{elements/footer :: footer}"></footer>
+
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/php-email-form/validate.js"></script>
+<script src="vendor/aos/aos.js"></script>
+<script src="vendor/glightbox/js/glightbox.min.js"></script>
+<script src="vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+<script src="vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="vendor/swiper/swiper-bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="js/main.js"></script>
+
+</body>
+
+</html>

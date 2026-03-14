@@ -1,0 +1,38 @@
+<div th:fragment="footer">
+
+    <div data-aos="fade-up" class="container footer">
+
+        <footer id="footer" class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4">
+            <div class="col-md-4 mt-5">
+
+                <p th:text="${@appConfig.getLLC()}"></p>
+
+                <p>
+                    © 2024 <span th:text="${@appConfig.getClientName()}"></span>  — Все права защищены. <span th:text="${@appConfig.getClientName()}"></span>  не связан с MojangAB, все средства идут на развитие проекта.
+                </p>
+
+            </div>
+            <a href="#" class="logoRelake" >
+                <img src="img/logo.png" alt="" width="40px">
+            </a>
+
+            <ul class="nav col-md-4 justify-content-end">
+                <li class="nav-item"><a href="#" class="nav-link px-2">Главная</a></li>
+                <li class="nav-item"><a href="/#video" class="nav-link px-2">Обзор</a></li>
+                <li class="nav-item"><a href="/eula" class="nav-link px-2">Пользовательское Соглашение</a></li>
+                <li class="nav-item"><a href="/privacy_policy" class="nav-link px-2">Обработка персональных данных</a></li>
+            </ul>
+
+
+        </footer>
+        <hr class="mx-auto mb-4 mb-xl-9 border-dark-subtle">
+
+        <div class="align-items-center mb-5">
+            <p style="margin-bottom: 0px;">По всем вопросам, пишите на почту ниже.</p>
+            <p><span th:text="${@appConfig.getSupportEmail()}"></span> (ПН-ПТ 10:00-18:00 МСК)</p>
+
+        </div>
+
+    </div>
+
+</div>
