@@ -16,7 +16,7 @@ type AdminTab = "users" | "keys" | "tickets" | "promos" | "payouts" | "configs" 
 // ── Realistic local state data ──
 
 const initialUsers = [
-  { id: 1, name: "Player123", email: "player@mail.ru", role: "user" as string, status: "active" as string, joined: "2026-02-10" },
+  { id: 1, name: "Player123", email: "player@mail.ru", role: "admin" as string, status: "active" as string, joined: "2026-02-10" },
   { id: 2, name: "MediaGuy", email: "media@mail.ru", role: "media_plus", status: "active", joined: "2026-01-20" },
   { id: 3, name: "TestUser", email: "test@mail.ru", role: "user", status: "banned", joined: "2025-12-05" },
   { id: 4, name: "ProPlayer", email: "pro@mail.ru", role: "user", status: "active", joined: "2026-02-01" },

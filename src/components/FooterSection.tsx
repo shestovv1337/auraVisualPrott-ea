@@ -12,7 +12,7 @@ const FooterSection = () => {
             <div className="flex items-center gap-2 mb-4">
               <img src={logoImage} alt="AuraVisual" className="w-8 h-8 rounded-lg object-cover" />
               <span className="font-bold text-lg tracking-tight">
-                <span className="gradient-text">Inf</span>inity
+                <span className="gradient-text">AuraVisual</span>
               </span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mb-4">

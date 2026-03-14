@@ -37,7 +37,7 @@ const PasswordGate = ({ children }: { children: React.ReactNode }) => {
             style={{ filter: "drop-shadow(0 0 20px hsl(255 70% 65% / 0.3))" }}
           />
           <h1 className="text-xl font-bold mb-1">
-            <span className="gradient-text">Inf</span>inity
+            <span className="gradient-text">AuraVisual</span>
           </h1>
           <p className="text-sm text-muted-foreground mb-6">Доступ ограничен. Введите пароль.</p>
 
