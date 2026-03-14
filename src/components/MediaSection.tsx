@@ -7,7 +7,7 @@ const steps = [
     icon: Video,
     step: "01",
     title: "Сними видео",
-    desc: "Обзор, PvP, PvE — любой формат с Infinity. Добавь хештег #Infinity",
+    desc: "Обзор, PvP, PvE — любой формат с AuraVisual. Добавь хештег #AuraVisual",
   },
   {
     icon: TrendingUp,
@@ -41,7 +41,7 @@ const MediaSection = () => {
             Снимай видео — <span className="gradient-text">зарабатывай</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-lg mx-auto">
-            Медиа-программа Infinity: снимай контент и получай процент от продаж
+            Медиа-программа AuraVisual: снимай контент и получай процент от продаж
           </p>
         </motion.div>
 

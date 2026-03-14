@@ -32,7 +32,7 @@ const Auth = () => {
             <ArrowLeft size={16} /> Назад ко входу
           </button>
           <div className="rounded-2xl glass border border-border/40 p-8 text-center">
-            <img src={logoImage} alt="Infinity" className="w-16 h-16 mx-auto rounded-xl object-cover mb-4" style={{ filter: "drop-shadow(0 0 20px hsl(255 70% 65% / 0.3))" }} />
+            <img src={logoImage} alt="AuraVisual" className="w-16 h-16 mx-auto rounded-xl object-cover mb-4" style={{ filter: "drop-shadow(0 0 20px hsl(255 70% 65% / 0.3))" }} />
             <h1 className="text-xl font-bold mb-1"><span className="gradient-text">Восстановление</span> пароля</h1>
             {forgotSent ? (
               <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="mt-6">
@@ -77,7 +77,7 @@ const Auth = () => {
 
         <div className="rounded-2xl glass border border-border/40 p-8">
           <div className="text-center mb-8">
-            <img src={logoImage} alt="Infinity" className="w-16 h-16 mx-auto rounded-xl object-cover mb-4"
+            <img src={logoImage} alt="AuraVisual" className="w-16 h-16 mx-auto rounded-xl object-cover mb-4"
               style={{ filter: "drop-shadow(0 0 20px hsl(255 70% 65% / 0.3))" }}
             />
             <h1 className="text-2xl font-bold">

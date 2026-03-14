@@ -99,7 +99,7 @@ const GallerySection = () => {
             <span className="gradient-text">Превью</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-md mx-auto">
-            Лучшие скриншоты и видео Infinity
+            Лучшие скриншоты и видео AuraVisual
           </p>
         </motion.div>
 

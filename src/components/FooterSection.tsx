@@ -10,7 +10,7 @@ const FooterSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <img src={logoImage} alt="Infinity" className="w-8 h-8 rounded-lg object-cover" />
+              <img src={logoImage} alt="AuraVisual" className="w-8 h-8 rounded-lg object-cover" />
               <span className="font-bold text-lg tracking-tight">
                 <span className="gradient-text">Inf</span>inity
               </span>
@@ -45,7 +45,7 @@ const FooterSection = () => {
 
         <div className="border-t border-border/20 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground font-mono">
-            © 2026 Infinity — Minecraft 1.21.4 Fabric
+            © 2026 AuraVisual — Minecraft 1.21.4 Fabric
           </p>
           <p className="text-xs text-muted-foreground">
             Не связан с Mojang Studios

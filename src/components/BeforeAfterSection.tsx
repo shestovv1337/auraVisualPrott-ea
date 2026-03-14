@@ -48,7 +48,7 @@ const BeforeAfterSection = () => {
         >
           <span className="text-primary font-mono text-sm tracking-widest uppercase mb-3 block">comparison</span>
           <h2 className="text-4xl md:text-5xl font-black mb-4">
-            Infinity <span className="gradient-text">в действии</span>
+            AuraVisual <span className="gradient-text">в действии</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-md mx-auto">
             Сравни геймплей до и после активации мода
@@ -82,7 +82,7 @@ const BeforeAfterSection = () => {
               {/* After (full) */}
               <img
                 src={onVisual}
-                alt="С Infinity"
+                alt="С AuraVisual"
                 className="absolute inset-0 w-full h-full object-cover"
                 draggable={false}
               />
@@ -94,7 +94,7 @@ const BeforeAfterSection = () => {
               >
                 <img
                   src={offVisual}
-                  alt="Без Infinity"
+                  alt="Без AuraVisual"
                   className="absolute top-0 left-0 h-full object-cover"
                   style={{ width: `${containerWidth}px`, maxWidth: "none" }}
                   draggable={false}
@@ -121,7 +121,7 @@ const BeforeAfterSection = () => {
               </div>
               <div className="absolute top-4 right-4 z-10 px-3 py-1.5 rounded-lg bg-primary/20 backdrop-blur-sm border border-primary/40 text-xs font-bold font-mono uppercase tracking-wider text-primary flex items-center gap-1.5">
                 <Sparkles size={12} />
-                С Infinity
+                С AuraVisual
               </div>
             </div>
           </div>

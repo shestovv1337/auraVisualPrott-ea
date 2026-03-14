@@ -62,7 +62,7 @@ const HeroSection = () => {
               <div className="absolute -inset-6 bg-primary/15 rounded-3xl blur-3xl animate-pulse-glow" />
               <img
                 src={logoImage}
-                alt="Infinity логотип"
+                alt="AuraVisual логотип"
                 className="w-28 h-28 md:w-36 md:h-36 rounded-2xl object-cover relative z-10 ring-2 ring-primary/30 shadow-2xl"
                 style={{ filter: 'drop-shadow(0 0 40px hsl(255 70% 65% / 0.4))' }}
               />
@@ -162,7 +162,7 @@ const HeroSection = () => {
                 className="absolute inset-0 flex items-center justify-center cursor-pointer group"
                 onClick={handlePlay}
               >
-                <img src={screenshot1} alt="Infinity геймплей" className="absolute inset-0 w-full h-full object-cover" />
+                <img src={screenshot1} alt="AuraVisual геймплей" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
                 <div className="relative w-20 h-20 rounded-full bg-primary/25 backdrop-blur-md flex items-center justify-center border border-primary/40 group-hover:scale-110 group-hover:bg-primary/35 transition-all">
                   <Play size={36} className="text-primary ml-1" />

@@ -43,9 +43,9 @@ const Navbar = () => {
       
       <div className="container mx-auto flex items-center justify-between h-14 md:h-16 px-4">
         <Link to="/" className="flex items-center gap-2.5">
-          <img src={logoImage} alt="Infinity" className="w-8 h-8 rounded-lg object-cover" />
+          <img src={logoImage} alt="AuraVisual" className="w-8 h-8 rounded-lg object-cover" />
           <span className="font-bold text-lg tracking-tight">
-            <span className="gradient-text">Infinity</span>
+            <span className="gradient-text">AuraVisual</span>
           </span>
         </Link>
 

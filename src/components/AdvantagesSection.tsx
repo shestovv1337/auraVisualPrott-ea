@@ -84,12 +84,12 @@ const AdvantagesSection = () => {
               <div className="absolute bottom-0 left-0 w-10 h-10 border-b-2 border-l-2 border-primary/40 rounded-bl-2xl z-10" />
               <div className="absolute bottom-0 right-0 w-10 h-10 border-b-2 border-r-2 border-primary/40 rounded-br-2xl z-10" />
               
-              <img src={screenshot3} alt="Infinity в игре" className="w-full aspect-video object-cover" />
+              <img src={screenshot3} alt="AuraVisual в игре" className="w-full aspect-video object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
                 <div>
                   <span className="text-xs uppercase tracking-widest text-primary font-mono font-semibold">screenshot</span>
-                  <h3 className="text-foreground font-bold text-xl mt-1">Infinity в действии</h3>
+                  <h3 className="text-foreground font-bold text-xl mt-1">AuraVisual в действии</h3>
                 </div>
                 <span className="text-xs text-muted-foreground font-mono">1920×1080</span>
               </div>

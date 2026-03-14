@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 
 const videoReviews = [
   {
-    title: "Обзор Infinity",
+    title: "Обзор AuraVisual",
     author: "Видеообзор #1",
     videoSrc: "/videos/video-2.mp4",
   },
